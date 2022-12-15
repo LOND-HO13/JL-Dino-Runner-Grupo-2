@@ -15,6 +15,6 @@ class Score:
         font = pygame.font.Font(FONT_STYLE , 30)
         message = font.render(f"Score: {self.points}", True, (0, 0, 0))
         message_rect = message.get_rect()
-        message_rect.center(1000, 40)
+        message_rect.center = (1000, 40)
         screen.blit(message,message_rect)
         

@@ -26,9 +26,9 @@ class Game:
         self.executing = False
     
     def execute(self):
-        self.executing = True
-        while self.executing:
-            if not self.executing:
+        self.execute = True
+        while self.execute:
+            if not self.playing:
                 self.show_menu()
         
         pygame.quit()
@@ -80,16 +80,18 @@ class Game:
         self.screen.fill((255, 255, 255))
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
+        
         if self.death_count == 0:
             font = pygame.font.Font(FONT_STYLE , 30)
             message = font.render("Press any key to start", True, (0,0,0))
             message_rect = message.get_rect()
-            message_rect.center(half_screen_width, half_screen_height)
+            message_rect.center = (half_screen_width, half_screen_height)
             self.screen.blit(message,message_rect)
         else:
             print(self.death_count)
             
         self.screen.blit(DINO_START, (half_screen_width - 40, half_screen_height - 120))
+        
         pygame.display.update()
         
         self.handle_menu_events()
