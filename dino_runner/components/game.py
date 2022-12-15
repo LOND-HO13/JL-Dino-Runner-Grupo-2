@@ -26,11 +26,13 @@ class Game:
         self.executing = False
     
     def execute(self):
-        self.execute = True
-        while self.execute:
+        self.executing = True
+        while self.executing:
             if not self.playing:
-                self.show_menu()
-        
+                # if self.death_count == 0:
+                    self.show_menu()
+                # else:
+                #     self.show_replay()
         pygame.quit()
     
     def run(self):
@@ -41,7 +43,6 @@ class Game:
             self.events()
             self.update()
             self.draw()
-        pygame.quit()
 
     def events(self):
         for event in pygame.event.get():
@@ -75,6 +76,12 @@ class Game:
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
 
+    def print_game (self, text_cadena, x_pos_message, y_pos_message):
+         font = pygame.font.Font(FONT_STYLE, 30)
+         message = font.render(text_cadena, True, (0, 0, 0))
+         message_rect = message.get_rect()
+         message_rect.center = (x_pos_message, y_pos_message)
+         self.screen.blit(message, message_rect)    
 
     def show_menu(self):
         self.screen.fill((255, 255, 255))
@@ -82,11 +89,11 @@ class Game:
         half_screen_height = SCREEN_HEIGHT // 2
         
         if self.death_count == 0:
-            font = pygame.font.Font(FONT_STYLE , 30)
-            message = font.render("Press any key to start", True, (0,0,0))
-            message_rect = message.get_rect()
-            message_rect.center = (half_screen_width, half_screen_height)
-            self.screen.blit(message,message_rect)
+            self.print_game("Press any key to start", half_screen_width, half_screen_height)
+        elif self.death_count >= 1:
+            self.print_game("Press any key to continue", half_screen_width, half_screen_height)
+            self.print_game(f"your score is: {self.score.points}", half_screen_width, half_screen_height + 40)
+            self.print_game(f"your cant of death is: {self.death_count}", half_screen_width, half_screen_height + 80)
         else:
             print(self.death_count)
             
@@ -95,10 +102,16 @@ class Game:
         pygame.display.update()
         
         self.handle_menu_events()
-        
+    
+    def show_replay(self):
+        pass
+    
+    
     def handle_menu_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.executing = False
             elif event.type == pygame.KEYDOWN:
+                self.score.points = 0
+                self.game_speed = 20
                 self.run()
