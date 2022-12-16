@@ -4,8 +4,10 @@ from dino_runner.components.draw_message import draw_message
 from dino_runner.utils.constants import (
     DEFAULT_TYPE,
     DINO_DEAD, 
-    DUCKING_SHIELD, 
-    JUMPING_SHIELD, 
+    DUCKING_SHIELD,
+    HEART_TYPE, 
+    JUMPING_SHIELD,
+#    MUSIC_JUMP, 
     RUNNING, 
     JUMPING, 
     DUCKING, 
@@ -21,16 +23,19 @@ duck_action = "ducking"
 DUCK_IMG = {
     DEFAULT_TYPE: DUCKING,
     SHIELD_TYPE: DUCKING_SHIELD,
+    HEART_TYPE: DUCKING
 }
 
 RUN_IMG = {
     DEFAULT_TYPE: RUNNING,
     SHIELD_TYPE: RUNNING_SHIELD,
+    HEART_TYPE: RUNNING
 }
 
 JUMP_IMG = {
     DEFAULT_TYPE: JUMPING,
     SHIELD_TYPE: JUMPING_SHIELD,
+    HEART_TYPE: JUMPING
 }
 
 class Dinosaur(Sprite):
@@ -48,6 +53,8 @@ class Dinosaur(Sprite):
         self.action = running_action
         self.has_power_up = False
         self.power_up_time_up = 0
+        self.lifes = 5
+        #self.sound_jump = pygame.mixer.Sound(MUSIC_JUMP)
               
     def resect_rect(self, y_pos=None):
         self.rect = self.image.get_rect()
@@ -83,6 +90,7 @@ class Dinosaur(Sprite):
         
     def jump(self):
         self.image = JUMP_IMG[self.type]
+        #self.play()
         y_pos = self.rect.y - self.jump_velocity * 4
         self.resect_rect(y_pos=y_pos)
         self.jump_velocity -= 0.8
@@ -121,3 +129,12 @@ class Dinosaur(Sprite):
     
     def on_dino_dead(self):
         self.image = DINO_DEAD
+        
+    def draw_life(self,screen):
+        draw_message(
+            f"your lifes: {self.lifes}", 
+            screen, 
+            (0,0,0), 
+            pos_x_center = 80, 
+            pos_y_center = 40
+            )
