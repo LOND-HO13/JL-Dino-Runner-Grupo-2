@@ -5,7 +5,7 @@ from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.obstacles.score import Score
 from dino_runner.components.powerUps.power_up_manager import PowerUpManager
 
-from dino_runner.utils.constants import BG, BOTON_RESET, DINO_START, FONT_STYLE, GAME_OVER, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE,  TITLE, FPS
+from dino_runner.utils.constants import BG, BOTON_RESET, DINO_START, FONT_STYLE, GAME_OVER, HAMMER_TYPE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE,  TITLE, FPS
 
 
 class Game:
@@ -59,7 +59,8 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-        
+        # if self.death_count >= 1:
+        #     self.player.lifes -= 1
         self.cloud.update(self)
         self.obstacle_manager.update(self.game_speed, self.player, self.on_death)
         self.power_up_manager.update(self.game_speed, self.score.points, self.player)
@@ -73,9 +74,11 @@ class Game:
         self.player.draw(self.screen)
         self.player.draw_life(self.screen)
         self.player.draw_active_power_uo(self.screen)
+        
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
         self.score.draw(self.screen)
+        
         pygame.display.update()
         pygame.display.flip()
         
@@ -101,23 +104,20 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
         
-        if self.death_count == 0:
+        if self.player.lifes > 0:
           
             self.screen.blit(DINO_START, (half_screen_width - 40, half_screen_height - 120))
             self.print_game("Press any key to start", half_screen_width, half_screen_height + 40)
-        
+            self.print_game(f"your lifes: {self.player.lifes}", half_screen_width, half_screen_height + 120)
         elif self.death_count >= 1:
          
             #self.print_game("Press any key to continue", half_screen_width, half_screen_height)
             self.screen.blit(GAME_OVER,(half_screen_width - 180, half_screen_height - 120));
+            self.print_game("Press any key to continue", half_screen_width, half_screen_height + 40)
             self.print_game(f"your score is: {self.score.points}", half_screen_width, half_screen_height + 40)
-            self.print_game(f"your cant of death is: {self.death_count}", half_screen_width, half_screen_height + 80)
-            self.print_game(f"your lifes: {self.player.lifes}", half_screen_width, half_screen_height + 120)
-            self.screen.blit(BOTON_RESET,(half_screen_width - 40, half_screen_height - 60));
             
-        else:
-       
-            print(self.death_count)
+            
+            self.screen.blit(BOTON_RESET,(half_screen_width - 40, half_screen_height - 60));
             
         pygame.display.update()
         
@@ -140,7 +140,7 @@ class Game:
             
     
     def on_death(self):
-        has_shield = self.player.type == SHIELD_TYPE #or type == hammer
+        has_shield = self.player.type == SHIELD_TYPE or self.player.type == HAMMER_TYPE
         if not has_shield:
             self.player.on_dino_dead()
             self.draw()

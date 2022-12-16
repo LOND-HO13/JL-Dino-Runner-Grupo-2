@@ -3,14 +3,17 @@ from pygame.sprite import Sprite
 from dino_runner.components.draw_message import draw_message
 from dino_runner.utils.constants import (
     DEFAULT_TYPE,
-    DINO_DEAD, 
+    DINO_DEAD,
+    DUCKING_HAMMER, 
     DUCKING_SHIELD,
-    HEART_TYPE, 
+    HAMMER_TYPE,
+    HEART_TYPE,
+    JUMPING_HAMMER, 
     JUMPING_SHIELD,
-#    MUSIC_JUMP, 
     RUNNING, 
     JUMPING, 
-    DUCKING, 
+    DUCKING,
+    RUNNING_HAMMER, 
     RUNNING_SHIELD,
     SCREEN_WIDTH, 
     SHIELD_TYPE
@@ -23,19 +26,21 @@ duck_action = "ducking"
 DUCK_IMG = {
     DEFAULT_TYPE: DUCKING,
     SHIELD_TYPE: DUCKING_SHIELD,
-    
+    HAMMER_TYPE: DUCKING_HAMMER,
     HEART_TYPE: DUCKING
 }
 
 RUN_IMG = {
     DEFAULT_TYPE: RUNNING,
     SHIELD_TYPE: RUNNING_SHIELD,
+    HAMMER_TYPE: RUNNING_HAMMER,
     HEART_TYPE: RUNNING
 }
 
 JUMP_IMG = {
     DEFAULT_TYPE: JUMPING,
     SHIELD_TYPE: JUMPING_SHIELD,
+    HAMMER_TYPE: JUMPING_HAMMER,
     HEART_TYPE: JUMPING
 }
 

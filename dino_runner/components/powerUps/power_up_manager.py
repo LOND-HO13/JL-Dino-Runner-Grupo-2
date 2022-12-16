@@ -1,5 +1,6 @@
 from random import randint
 import pygame
+from dino_runner.components.powerUps.hammer import Hammer
 from dino_runner.components.powerUps.heart import Heart
 from dino_runner.components.powerUps.powe_up import PowerUp
 from dino_runner.components.powerUps.shield import Shield
@@ -14,9 +15,11 @@ class PowerUpManager:
         
     def generate_power_up(self, score):
         if not self.power_ups and self.when_appears == score:
-            ran = randint(0,1)
+            ran = randint(0,2)
             if ran == 0:
                 self.power_ups.append(Shield())
+            elif ran == 1:
+                self.power_ups.append(Hammer())
             else:
                 self.power_ups.append(Heart()) 
             self.when_appears += randint(200, 300)
@@ -33,6 +36,7 @@ class PowerUpManager:
             else:
                 if power_up.rect.colliderect(player.rect):
                     self.power_ups.remove(power_up)
+                    player.lifes += 1
                     
     def draw(self, screen):
         for power_up in self.power_ups:
