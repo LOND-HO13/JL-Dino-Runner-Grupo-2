@@ -79,6 +79,7 @@ DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
 HEART_TYPE = "heart"
 
+
 #MUSIC_JUMP = "Sounds/jump.mp3"
 
 FONT_STYLE = "freesansbold.ttf"

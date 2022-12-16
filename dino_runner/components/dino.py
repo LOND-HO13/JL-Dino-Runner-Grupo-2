@@ -23,6 +23,7 @@ duck_action = "ducking"
 DUCK_IMG = {
     DEFAULT_TYPE: DUCKING,
     SHIELD_TYPE: DUCKING_SHIELD,
+    
     HEART_TYPE: DUCKING
 }
 
