@@ -15,7 +15,6 @@ from dino_runner.utils.constants import (
     DUCKING,
     RUNNING_HAMMER, 
     RUNNING_SHIELD,
-    SCREEN_WIDTH, 
     SHIELD_TYPE
     )
 

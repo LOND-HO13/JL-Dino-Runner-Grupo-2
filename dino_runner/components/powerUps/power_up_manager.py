@@ -28,7 +28,7 @@ class PowerUpManager:
         self.generate_power_up(score)
         for power_up in self.power_ups: 
             power_up.update(game_speed, self.power_ups)
-            if power_up.type != HEART_TYPE:
+            if  power_up.type != HEART_TYPE:
                 if power_up.rect.colliderect(player.rect):
                     power_up.start_time = pygame.time.get_ticks()
                     player.on_pick_power_up(power_up)

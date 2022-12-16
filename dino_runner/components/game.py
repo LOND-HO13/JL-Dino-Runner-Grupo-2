@@ -104,16 +104,15 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
         
-        if self.player.lifes > 0:
-          
+        if self.player.lifes >= 0:
             self.screen.blit(DINO_START, (half_screen_width - 40, half_screen_height - 120))
             self.print_game("Press any key to start", half_screen_width, half_screen_height + 40)
             self.print_game(f"your lifes: {self.player.lifes}", half_screen_width, half_screen_height + 120)
-        elif self.death_count >= 1:
-         
+       
+        elif self.player.lifes < 0:
             #self.print_game("Press any key to continue", half_screen_width, half_screen_height)
             self.screen.blit(GAME_OVER,(half_screen_width - 180, half_screen_height - 120));
-            self.print_game("Press any key to continue", half_screen_width, half_screen_height + 40)
+            self.print_game("Game over men, press any key to continue", half_screen_width, half_screen_height + 40)
             self.print_game(f"your score is: {self.score.points}", half_screen_width, half_screen_height + 40)
             
             
@@ -135,7 +134,7 @@ class Game:
                 self.score.points = 0
                 self.game_speed = 20
                 self.power_up_manager.reset_power_ups()
-                self.player.lifes = 5
+                #self.player.lifes = 5
                 self.run()
             
     
@@ -144,7 +143,6 @@ class Game:
         if not has_shield:
             self.player.on_dino_dead()
             self.draw()
-            self.death_count += 1
             self.player.lifes -= 1
             self.playing = False
             
