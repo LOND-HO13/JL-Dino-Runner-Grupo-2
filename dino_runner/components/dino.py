@@ -72,6 +72,10 @@ class Dinosaur(Sprite):
             
         elif self.action == jumping_action:
             self.jump()
+            pygame.mixer.Sound.play(SOUND_JUMP)
+            pygame.mixer.Sound.set_volume( SOUND_JUMP, VOLUME)
+
+
         
         elif self.action == duck_action:
             self.duck()
