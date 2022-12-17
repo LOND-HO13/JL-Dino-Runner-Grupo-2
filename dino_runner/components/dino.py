@@ -15,7 +15,10 @@ from dino_runner.utils.constants import (
     DUCKING,
     RUNNING_HAMMER, 
     RUNNING_SHIELD,
-    SHIELD_TYPE
+    SHIELD_TYPE,
+    SOUND_DEAD,
+    SOUND_JUMP,
+    SOUND_VOLUMEN
     )
 
 jumping_action = "jumping"
@@ -73,7 +76,7 @@ class Dinosaur(Sprite):
         elif self.action == jumping_action:
             self.jump()
             pygame.mixer.Sound.play(SOUND_JUMP)
-            pygame.mixer.Sound.set_volume( SOUND_JUMP, VOLUME)
+            pygame.mixer.Sound.set_volume( SOUND_JUMP,SOUND_VOLUMEN)
 
 
         
@@ -138,6 +141,8 @@ class Dinosaur(Sprite):
     
     def on_dino_dead(self):
         self.image = DINO_DEAD
+        pygame.mixer.Sound.play(SOUND_DEAD)
+        pygame.mixer.Sound.set_volume( SOUND_DEAD,SOUND_VOLUMEN)
         
     def draw_life(self,screen):
         draw_message(

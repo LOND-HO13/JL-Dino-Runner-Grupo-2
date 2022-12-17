@@ -6,7 +6,7 @@ from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.obstacles.score import Score
 from dino_runner.components.powerUps.power_up_manager import PowerUpManager
 
-from dino_runner.utils.constants import BG, BOTON_RESET, DINO_START, FONT_STYLE, GAME_OVER, HAMMER_TYPE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE,  TITLE, FPS
+from dino_runner.utils.constants import BG, BOTON_RESET, DINO_START, FONT_STYLE, GAME_OVER, HAMMER_TYPE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE, SOUND_BREAK, SOUND_VOLUMEN,  TITLE, FPS
 
 
 class Game:
@@ -152,4 +152,6 @@ class Game:
         
         elif  self.player.type == HAMMER_TYPE:
             self.obstacle_manager.obstacles.remove(obstacle)
+            pygame.mixer.Sound.play(SOUND_BREAK)
+            pygame.mixer.Sound.set_volume( SOUND_BREAK,SOUND_VOLUMEN)
         return not has_shield 

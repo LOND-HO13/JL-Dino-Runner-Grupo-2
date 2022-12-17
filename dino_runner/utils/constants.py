@@ -1,6 +1,9 @@
 import pygame
 import os
 
+pygame.init()
+pygame.mixer.init()
+
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
@@ -87,5 +90,5 @@ FONT_STYLE = "freesansbold.ttf"
 SOUND_BREAK = pygame.mixer.Sound(os.path.join(IMG_DIR,"Sounds/brick_smash.ogg"))
 SOUND_JUMP = pygame.mixer.Sound(os.path.join(IMG_DIR,"Sounds/big_jump.ogg"))
 SOUND_POWERUP = pygame.mixer.Sound(os.path.join(IMG_DIR,"Sounds/powerup.ogg"))
-SOUND_DEAD = pygame.mixer.Sound(os.path.join(IMG_DIR,"Sounds/resources_music_death.ogg"))
+SOUND_DEAD = pygame.mixer.Sound(os.path.join(IMG_DIR,"Sounds/resources_music_death.wav"))
 SOUND_VOLUMEN = 0.1
